@@ -54,7 +54,6 @@ class SearchField extends StatelessWidget {
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           hintStyle: TextStyle(color: searchTextHintColor),
-          icon: isSearching ?? false ? null : Icon(Icons.search),
           suffixIcon: searchQueryController!.text.isNotEmpty
               ? IconButton(
                   alignment: Alignment.centerRight,
@@ -62,7 +61,7 @@ class SearchField extends StatelessWidget {
                   icon: Icon(Icons.clear),
                   onPressed: onClearButtonPressed!,
                 )
-              : Container(),
+              : Icon(Icons.search),
         ),
         textAlignVertical: TextAlignVertical.center,
         textInputAction: TextInputAction.search,
