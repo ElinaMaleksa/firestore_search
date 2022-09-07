@@ -15,7 +15,6 @@ class _SearchFeedState extends State<SearchFeed> {
     return FirestoreSearchScaffold(
       firestoreCollectionName: 'packages',
       searchBy: 'tool',
-      docUIDSearchBy: "",
       scaffoldBody: Column(
         children: [
           Row(
@@ -37,7 +36,9 @@ class _SearchFeedState extends State<SearchFeed> {
               tag: 'test',
               firestoreCollectionName: 'packages',
               searchBy: 'tool',
-              initialBody: const Center(child: Text('Initial body'),),
+              initialBody: const Center(
+                child: Text('Initial body'),
+              ),
               dataListFromSnapshot: DataModel().dataListFromSnapshot,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -65,10 +66,8 @@ class _SearchFeedState extends State<SearchFeed> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: 8.0, left: 8.0, right: 8.0),
-                              child: Text('${data.developer}',
-                                  style: Theme.of(context).textTheme.bodyText1),
+                              padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+                              child: Text('${data.developer}', style: Theme.of(context).textTheme.bodyText1),
                             )
                           ],
                         );
@@ -117,10 +116,8 @@ class _SearchFeedState extends State<SearchFeed> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 8.0, left: 8.0, right: 8.0),
-                      child: Text('${data.developer}',
-                          style: Theme.of(context).textTheme.bodyText1),
+                      padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+                      child: Text('${data.developer}', style: Theme.of(context).textTheme.bodyText1),
                     )
                   ],
                 );

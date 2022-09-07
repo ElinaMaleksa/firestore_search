@@ -5,23 +5,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirestoreService<T> {
   final String? collectionName;
   final String? searchBy;
-  final String? docUIDSearchBy;
   final List Function(QuerySnapshot)? dataListFromSnapshot;
   final int? limitOfRetrievedData;
 
-  FirestoreService(
-      {this.collectionName, this.searchBy, this.docUIDSearchBy, this.dataListFromSnapshot, this.limitOfRetrievedData});
+  FirestoreService({this.collectionName, this.searchBy, this.dataListFromSnapshot, this.limitOfRetrievedData});
 
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   Stream<List> searchData(String query) {
     final collectionReference = firebaseFirestore.collection(collectionName!);
+    print("searchBy == uid: ${searchBy == "uid"}");
+    print("QUERY: $query");
     return query.isEmpty
         ? Stream.empty()
         : searchBy == "uid"
             ? collectionReference
                 .orderBy('created', descending: true)
-                .where(FieldPath.documentId, whereIn: [docUIDSearchBy])
+                .where(FieldPath.documentId, whereIn: [query])
                 .limit(limitOfRetrievedData!)
                 .snapshots()
                 .map(dataListFromSnapshot!)

@@ -19,9 +19,6 @@ class FirestoreSearchResults extends StatelessWidget {
   ///
   final String? searchBy;
 
-  /// Provide docUID to be able to search by it
-  final String? docUIDSearchBy;
-
   /// Limit of firestore documents return is search results
   ///
   final int limitOfRetrievedData;
@@ -53,7 +50,6 @@ class FirestoreSearchResults extends StatelessWidget {
       {required this.tag,
       required this.firestoreCollectionName,
       required this.searchBy,
-      this.docUIDSearchBy,
       this.limitOfRetrievedData = 10,
       required this.dataListFromSnapshot,
       this.builder,
@@ -78,7 +74,6 @@ class FirestoreSearchResults extends StatelessWidget {
                           stream: FirestoreService(
                                   collectionName: firestoreCollectionName,
                                   searchBy: searchBy ?? "",
-                                  docUIDSearchBy: docUIDSearchBy ?? "",
                                   dataListFromSnapshot: dataListFromSnapshot,
                                   limitOfRetrievedData: limitOfRetrievedData)
                               .searchData(_controller.searchQuery.value),
