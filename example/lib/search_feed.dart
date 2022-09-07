@@ -15,6 +15,7 @@ class _SearchFeedState extends State<SearchFeed> {
     return FirestoreSearchScaffold(
       firestoreCollectionName: 'packages',
       searchBy: 'tool',
+      docUIDSearchBy: "",
       scaffoldBody: Column(
         children: [
           Row(

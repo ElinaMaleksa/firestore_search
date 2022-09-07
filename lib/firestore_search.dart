@@ -1,16 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_search/src/mvc/controllers/firestore_search_controller.dart';
 import 'package:firestore_search/src/mvc/services/firestore_service.dart';
 import 'package:firestore_search/src/mvc/widgets/search_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-export 'package:firestore_search/src/mvc/controllers/firestore_search_controller.dart'
-    hide FirestoreSearchController;
-export 'package:firestore_search/src/mvc/views/search_bar.dart'
-    show FirestoreSearchBar;
-export 'package:firestore_search/src/mvc/views/search_results.dart'
-    show FirestoreSearchResults;
+export 'package:firestore_search/src/mvc/controllers/firestore_search_controller.dart' hide FirestoreSearchController;
+export 'package:firestore_search/src/mvc/views/search_bar.dart' show FirestoreSearchBar;
+export 'package:firestore_search/src/mvc/views/search_results.dart' show FirestoreSearchResults;
 
 class FirestoreSearchScaffold extends StatefulWidget {
   final Widget scaffoldBody;
@@ -36,6 +30,7 @@ class FirestoreSearchScaffold extends StatefulWidget {
   /// want to search data from
   final String? firestoreCollectionName;
   final String? searchBy;
+  final String? docUIDSearchBy;
   final String? appBarTitle;
   final List Function(QuerySnapshot) dataListFromSnapshot;
 
@@ -71,6 +66,7 @@ class FirestoreSearchScaffold extends StatefulWidget {
     this.appBarTitleColor,
     required String this.firestoreCollectionName,
     required this.searchBy,
+    this.docUIDSearchBy,
     required this.dataListFromSnapshot,
     this.builder,
     this.limitOfRetrievedData = 10,
@@ -79,8 +75,7 @@ class FirestoreSearchScaffold extends StatefulWidget {
             'limitOfRetrievedData should be between 1 and 30.\n');
 
   @override
-  _FirestoreSearchScaffoldState createState() =>
-      _FirestoreSearchScaffoldState();
+  _FirestoreSearchScaffoldState createState() => _FirestoreSearchScaffoldState();
 }
 
 class _FirestoreSearchScaffoldState extends State<FirestoreSearchScaffold> {
@@ -131,8 +126,7 @@ class _FirestoreSearchScaffoldState extends State<FirestoreSearchScaffold> {
                             searchQueryController: searchQueryController,
                             isSearching: isSearching,
                             showSearchIcon: widget.showSearchIcon,
-                            clearSearchButtonColor:
-                                widget.clearSearchButtonColor,
+                            clearSearchButtonColor: widget.clearSearchButtonColor,
                             searchFocusNode: searchFocusNode,
                             searchBackgroundColor: widget.searchBackgroundColor,
                             searchTextColor: widget.searchTextColor,
@@ -163,8 +157,7 @@ class _FirestoreSearchScaffoldState extends State<FirestoreSearchScaffold> {
                 IconButton(
                     icon: const Icon(Icons.search),
                     padding: const EdgeInsets.all(0),
-                    color: widget.searchIconColor ??
-                        Theme.of(context).primaryColor,
+                    color: widget.searchIconColor ?? Theme.of(context).primaryColor,
                     onPressed: () {
                       setState(() {
                         if (!isSearching) {
@@ -193,10 +186,9 @@ class _FirestoreSearchScaffoldState extends State<FirestoreSearchScaffold> {
                         stream: FirestoreService(
                                 collectionName: widget.firestoreCollectionName,
                                 searchBy: widget.searchBy ?? '',
-                                dataListFromSnapshot:
-                                    widget.dataListFromSnapshot,
-                                limitOfRetrievedData:
-                                    widget.limitOfRetrievedData)
+                                dataListFromSnapshot: widget.dataListFromSnapshot,
+                                docUIDSearchBy: widget.docUIDSearchBy ?? "",
+                                limitOfRetrievedData: widget.limitOfRetrievedData)
                             .searchData(searchQuery),
                         builder: widget.builder!),
               )
