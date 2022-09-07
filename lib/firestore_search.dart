@@ -120,7 +120,7 @@ class _FirestoreSearchScaffoldState extends State<FirestoreSearchScaffold> {
               Expanded(
                 child: widget.showSearchIcon
                     ? isSearching
-                        ? SearchFiled(
+                        ? SearchField(
                             searchQueryController: searchQueryController,
                             isSearching: isSearching,
                             showSearchIcon: widget.showSearchIcon,
@@ -138,7 +138,7 @@ class _FirestoreSearchScaffoldState extends State<FirestoreSearchScaffold> {
                               widget.appBarTitle ?? 'AppBar Title',
                               style: TextStyle(color: widget.appBarTitleColor),
                             ))
-                    : SearchFiled(
+                    : SearchField(
                         searchQueryController: searchQueryController,
                         isSearching: isSearching,
                         showSearchIcon: widget.showSearchIcon,

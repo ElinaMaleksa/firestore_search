@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SearchFiled extends StatelessWidget {
+class SearchField extends StatelessWidget {
   final bool? showSearchIcon;
   final bool? isSearching;
   final Color? searchBackgroundColor;
@@ -12,8 +12,9 @@ class SearchFiled extends StatelessWidget {
   final Function(String)? onSearchQueryChanged;
   final Function(String)? onSearchQueryUpdated;
   final Function(String)? onEditingComplete;
-  TextEditingController? searchQueryController;
-  SearchFiled(
+  final TextEditingController? searchQueryController;
+
+  SearchField(
       {this.showSearchIcon = false,
       this.isSearching = false,
       this.searchBackgroundColor,
@@ -38,8 +39,7 @@ class SearchFiled extends StatelessWidget {
           ? const EdgeInsets.only(bottom: 3.5, top: 3.5, right: 2.0, left: 2.0)
           : isSearching!
               ? const EdgeInsets.only(bottom: 3.5, top: 3.5, right: 10.0)
-              : const EdgeInsets.only(
-                  bottom: 3.5, top: 3.5, right: 10.0, left: 10.0),
+              : const EdgeInsets.only(bottom: 3.5, top: 3.5, right: 10.0, left: 10.0),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
@@ -49,22 +49,20 @@ class SearchFiled extends StatelessWidget {
         controller: searchQueryController,
         focusNode: searchFocusNode,
         decoration: InputDecoration(
-          hintText: "Search...",
+          hintText: "Search",
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           hintStyle: TextStyle(color: searchTextHintColor),
+          icon: isSearching ?? false ? null : Icon(Icons.search),
           suffixIcon: searchQueryController!.text.isNotEmpty
               ? IconButton(
                   alignment: Alignment.centerRight,
                   color: clearSearchButtonColor,
-                  icon: const Icon(Icons.clear),
+                  icon: Icon(Icons.clear),
                   onPressed: onClearButtonPressed!,
                 )
-              : const SizedBox(
-                  height: 0.0,
-                  width: 0.0,
-                ),
+              : Container(),
         ),
         textAlignVertical: TextAlignVertical.center,
         textInputAction: TextInputAction.search,

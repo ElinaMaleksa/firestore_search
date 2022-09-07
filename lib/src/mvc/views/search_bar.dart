@@ -30,7 +30,7 @@ class FirestoreSearchBar extends StatelessWidget {
     Get.put(FirestoreSearchController(), tag: tag);
     return GetBuilder<FirestoreSearchController>(
         tag: tag,
-        builder: (_controller) => SearchFiled(
+        builder: (_controller) => SearchField(
               searchQueryController: _controller.searchQueryController.value,
               isSearching: _controller.isSearching.value,
               showSearchIcon: showSearchIcon,

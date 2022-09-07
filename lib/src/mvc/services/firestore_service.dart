@@ -14,21 +14,14 @@ class FirestoreService<T> {
 
   Stream<List> searchData(String query) {
     final collectionReference = firebaseFirestore.collection(collectionName!);
-    print("searchBy == uid: ${searchBy == "uid"}");
-    print("QUERY: $query");
     return query.isEmpty
         ? Stream.empty()
-        : searchBy == "uid"
-            ? collectionReference
-                .where(FieldPath.documentId, isEqualTo: query)
-                .snapshots()
-                .map(dataListFromSnapshot!)
-            : collectionReference
-                .orderBy('$searchBy', descending: false)
-                .where('$searchBy', isGreaterThanOrEqualTo: query)
-                .where('$searchBy', isLessThan: query + 'z')
-                .limit(limitOfRetrievedData!)
-                .snapshots()
-                .map(dataListFromSnapshot!);
+        : collectionReference
+            .orderBy('$searchBy', descending: false)
+            .where(searchBy == "uid" ? FieldPath.documentId : "$searchBy", isGreaterThanOrEqualTo: query)
+            .where(searchBy == "uid" ? FieldPath.documentId : "$searchBy", isLessThan: query + 'z')
+            .limit(limitOfRetrievedData!)
+            .snapshots()
+            .map(dataListFromSnapshot!);
   }
 }
