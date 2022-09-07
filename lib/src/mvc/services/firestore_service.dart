@@ -18,17 +18,17 @@ class FirestoreService<T> {
     final collectionReference = firebaseFirestore.collection(collectionName!);
     return query.isEmpty
         ? Stream.empty()
-        : docUIDSearchBy?.isEmpty ?? true
+        : searchBy == "uid"
             ? collectionReference
-                .orderBy('$searchBy', descending: false)
-                .where('$searchBy', isGreaterThanOrEqualTo: query)
-                .where('$searchBy', isLessThan: query + 'z')
+                .orderBy('created', descending: true)
+                .where(FieldPath.documentId, whereIn: [docUIDSearchBy])
                 .limit(limitOfRetrievedData!)
                 .snapshots()
                 .map(dataListFromSnapshot!)
             : collectionReference
                 .orderBy('$searchBy', descending: false)
-                .where(FieldPath.documentId, whereIn: [docUIDSearchBy])
+                .where('$searchBy', isGreaterThanOrEqualTo: query)
+                .where('$searchBy', isLessThan: query + 'z')
                 .limit(limitOfRetrievedData!)
                 .snapshots()
                 .map(dataListFromSnapshot!);
