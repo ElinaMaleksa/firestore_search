@@ -21,7 +21,7 @@ class FirestoreService<T> {
         : searchBy == "uid"
             ? collectionReference
                 .orderBy('created', descending: true)
-                .where(FieldPath.documentId, whereIn: [query])
+                .where(FieldPath.documentId, isEqualTo: query)
                 .limit(limitOfRetrievedData!)
                 .snapshots()
                 .map(dataListFromSnapshot!)
